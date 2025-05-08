@@ -1,0 +1,28 @@
+services:
+  postgres:
+    image: postgres:latest
+    hostname: postgres
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: pinha
+      PGUSER: pinha
+      POSTGRES_PASSWORD: pinha
+      POSTGRES_DB: pinha
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./db/postgresql.conf:/docker-entrypoint-initdb.d/postgresql.conf
+    command: postgres -c config_file=/docker-entrypoint-initdb.d/postgresql.conf
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
+    network_mode: bridge
+    deploy:
+      resources:
+        limits:
+          cpus: '0.60'
+          memory: '1800MB'
