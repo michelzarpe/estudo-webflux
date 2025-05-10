@@ -15,7 +15,7 @@ class BookService (
 ) {
     fun getById(id: Long): Mono<Book> =
         bookRepository.findById(id)
-            .switchIfEmpty { Mono.defer { Mono.just<Book>(Book()) } }
+            .switchIfEmpty { Mono.error(IllegalArgumentException("Book not found")) }
             .onErrorMap { err -> IllegalArgumentException("Book not found") }
 
     fun addBook(bookCreateRequest: BookCreateRequest): Mono<Book> =
