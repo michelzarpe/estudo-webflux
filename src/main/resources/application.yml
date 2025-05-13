@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: estudo-webflux
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/pinha
+    username: pinha
+    password: pinha
+
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+  r2dbc:
+    url: r2dbc:tc:postgresql:///testdb?TC_IMAGE_TAG=14-alpine
+---

@@ -26,3 +26,5 @@ services:
         limits:
           cpus: '0.60'
           memory: '1800MB'
+
+
